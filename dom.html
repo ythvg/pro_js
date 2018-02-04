@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="someNode">
+        <div name="child">first child</div>
+        <div>last child</div>
+    </div>
+    
+<script>
+// Node类型
+if (someNode.nodeType === Node.ELEMENT_NODE) { // ie中无效
+    console.log('Node is an element');
+}
+if (someNode.nodeType === 1) {
+    console.log('Node is an element');
+    console.log(someNode.nodeName);
+}
+console.log(someNode instanceof Node);
+
+// 节点关系
+console.log(someNode.childNodes[0] === someNode.firstChild);
+console.log(someNode.lastChild);
+console.log(someNode.childNodes.length);
+console.log(someNode.childNodes instanceof NodeList);
+
+// 将NodeList对象转换为数组
+function convertToArray(nodes) {
+    var array = null;
+    try {
+        array = Array.prototype.slice.call(nodes, 0); // 非ie浏览器
+    } catch (ex) {
+        array = new Array();
+        for (var i = 0, len = nodes.length; i < len; i++) {
+            array.push(nodes[i]);
+        }
+    }
+    return array;
+}
+
+// 父节点 和 兄弟节点
+console.log(someNode.firstChild.parentNode === someNode);
+console.log(someNode.lastChild.previousSibling);
+console.log(someNode.firstChild.nextSibling);
+console.log(someNode.hasChildNodes());
+console.log(someNode.ownerDocument);
+
+// 操作节点
+console.log(someNode.appendChild(someNode.firstChild));
+console.log(someNode.insertBefore(someNode.lastChild, someNode.firstChild));
+
+console.log(someNode.replaceChild(document.createElement('div'), someNode.firstChild));
+console.log(someNode.removeChild(someNode.firstChild));
+console.log(someNode.childNodes.length);
+
+// 克隆节点
+console.log(someNode.cloneNode(true));
+
+/**
+*   Document 类型
+*/
+console.log('\n');
+console.log('document ------------------');
+console.log(document instanceof HTMLDocument);
+console.log(document.nodeType);
+console.log(document.nodeName);
+// 文档的子节点
+console.log(document.documentElement);
+console.log(document.body);
+console.log(document.doctype);
+console.log(document.title);
+// 文档信息
+console.log(document.URL);
+console.log(document.domain);
+console.log(document.referrer);
+// 查找元素
+console.log(document.getElementsByTagName('div') instanceof NodeList);
+console.log(document.getElementsByTagName('div') instanceof HTMLCollection);
+
+/**
+*   Element类型
+*/
+console.log('element ------------------');
+console.log(someNode.nodeType);
+if (someNode.tagName.toLowerCase() === 'div') {
+
+}
+console.log(someNode.id);
+// 取得特性
+console.log(someNode.getAttribute('id'));
+someNode.className = 'div'
+console.log(someNode);
+// 创建元素 
+document.createElement('div');
+
+console.log(someNode.getElementsByTagName('div'));
+for (var i = 0, len = someNode.childNodes.length; i < len; i++) {
+    if (someNode.childNodes[i].nodeType === 1) {
+        console.log(someNode.childNodes[i]);
+    }
+}
+
+// Text 类型
+var textNode = document.createTextNode('<strong>hello</strong>');
+someNode.appendChild(textNode);
+console.log(textNode.nodeType);
+console.log(textNode.nodeName);
+console.log(textNode.nodeValue);
+console.log(someNode.childNodes.length);
+someNode.appendChild(document.createTextNode('test'));
+console.log(someNode.childNodes.length);
+someNode.normalize();
+console.log(someNode.childNodes.length);
+console.log(someNode);
+console.log(someNode.lastChild);
+someNode.lastChild.splitText(5);
+console.log(someNode.lastChild);
+someNode.lastChild.splitText(5);
+console.log(someNode.lastChild);
+
+// DocumentFragment类型
+var fragment = document.createDocumentFragment();
+
+// 动态脚本
+// 插入外部文件
+function loadScript(url) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    document.body.appendChild(script);
+}
+// 直接插入javascript代码
+function loadScriptString(code) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    try {
+        script.appendChild(document.createTextNode(code));
+    } catch (ex) {
+        script.text = code; // 兼容ie
+    }
+    document.body.appendChild(script);
+}
+function sayHi() {
+    console.log('hi');
+}
+loadScriptString('sayHi()');
+
+// 动态样式
+// 加载外部样式
+function loadStyle(url) {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(link);
+}
+// 直接插入css样式
+function loadStyleString(css) {
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    try {
+        style.appendChild(document.createTextNode(css));
+    } catch (ex) {
+        style.styleSheet.cssText = css; // 兼容id
+    }
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(style);
+}
+loadStyleString('#someNode { color: blue }');
+
+</script>
+</body>
+</html>
