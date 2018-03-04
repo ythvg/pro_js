@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单脚本</title>
+</head>
+<body>
+    
+    <form action="" id="form1">
+        <div>
+            <input type="text" id="input" autofocus>
+        </div>
+        <ul>
+            <li><input type="radio" name="color" value="red">Red</li>
+            <li><input type="radio" name="color" value="green">green</li>
+            <li><input type="radio" name="color" value="blue">blue</li>
+        </ul>
+        <input type="reset" value="Reset Form">
+        <input type="submit" value="Submit Form" id="btnSub">
+        <button id="btnAttr">test attribute</button>
+    </form>
+
+<script>
+    const form = document.getElementById('form1');
+ 
+    form.addEventListener('reset', (e) => {
+        e.preventDefault();
+    });
+    console.log(form.elements);
+    const colorFields = form.elements['color'];
+    console.log(colorFields);
+
+    // 表单字段属性
+    btnAttr.onclick = (e) => {
+        input.value = 'Another value';
+        console.log(input.form === form); 
+        console.log(input.type);
+        input.focus();
+        input.disabled = true;
+        // input.type = 'checkbox';
+    };
+
+    // 避免多次提交表单
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        btnSub.disabled = true;
+    });  
+
+    // 共有的表单字段方法
+    window.onload = (e) => {
+        let element = document.forms[0].elements[0];
+        if (element.autofocus !== true) {
+            element.focus();
+        }
+        // element.blur();
+    }
+
+    // 共有的表单事件
+    input.addEventListener('focus', (e) => {
+        const target = e.target;
+        if (target.style.backgroundColor !== 'red') {
+            target.style.backgroundColor = 'yellow';
+        }
+    });
+
+    input.addEventListener('blur', (e) => {
+        const target = e.target;
+        if (/[^\d]/.test(e.target.value)) {
+            target.style.backgroundColor = 'red';
+        } else {
+            target.style.backgroundColor = '';
+        }
+    });
+
+    input.addEventListener('change', (e) => {
+        const target = e.target;
+        if (/[^\d]/.test(e.target.value)) {
+            target.style.backgroundColor = 'red';
+        } else {
+            target.style.backgroundColor = '';
+        }
+    });
+</script>
+</body>
+</html>
