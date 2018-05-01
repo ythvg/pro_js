@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>File API</title>
 </head>
 <body>
     <input type="file" id="file-list" multiple>
@@ -12,7 +12,9 @@
 <script>
     const fileList = document.getElementById('file-list');
     fileList.addEventListener('change', (e) => {
+        console.log('e.target', e.target);
         const files = e.target.files, len = files.length;
+        console.log('files', files);
         for (let i = 0; i < len; i++) {
             let file = files[i];
             console.log(file.name + ': ' + file.type + ', ' + file.size);
