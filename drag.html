@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="width: 100px; height: 100px; background-color: blue; position: absolute;" id="drag-div"></div>
+
+    <script>
+        const dragDiv = document.getElementById('drag-div');
+        document.addEventListener('mousemove', (event) => {
+            console.log('x: ', event.clientX);
+            console.log('y: ', event.clientY);
+            dragDiv.style.left = event.clientX + 'px';
+            dragDiv.style.top = event.clientY + 'px';
+        })
+    </script>
+</body>
+</html>
