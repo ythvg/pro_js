@@ -1,6 +1,8 @@
 
 console.log('Buffer.alloc(10):\n', Buffer.alloc(10), '\n');
 
+console.log('Buffer.alloc(10).length:\n', Buffer.alloc(10).length, '\n');
+
 console.log('Buffer.alloc(10, 1):\n', Buffer.alloc(10, 1), '\n');
 
 console.log('Buffer.allocUnsafe(10):\n', Buffer.allocUnsafe(10), '\n');

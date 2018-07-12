@@ -1,4 +1,4 @@
-const dns = require('dns');
+const dns = require('nodeJs/dns');
 
 // 本地host有影响
 dns.lookup('www.qq.com', { all: true }, (err, address, family) => {
