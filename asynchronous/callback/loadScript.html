@@ -14,7 +14,7 @@
         script.onerror = () => callback(new Error(`Script load error for ${src}`));
         document.head.appendChild(script);
     }
-    loadScript('./script.js', (err, script) => {
+    loadScript('../script.js', (err, script) => {
         if (err) {
             console.log(err);
         } else {

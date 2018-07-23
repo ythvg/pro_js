@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnimatedCircle</title>
+    <style>
+        .circle {
+            background-color: red;
+            transition-property: width, height;
+            transition-duration: 1s;
+            position: fixed;
+            border-radius: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        .message-ball {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<button onclick="handleBtnClick()">showCircle</button>
+
+<script>
+function showCircle(x = 0, y = 0, radius, callback) {
+    return new Promise(function(resolve, reject) {
+
+        const circleDiv = document.createElement('div');
+        circleDiv.style.width = 0;
+        circleDiv.style.height = 0;
+        circleDiv.style.left = `${x}px`;
+        circleDiv.style.top = `${y}px`;
+        circleDiv.className = 'circle';
+        circleDiv.addEventListener('transitionend', (e) => {
+            if (e.propertyName === 'width') {
+                resolve(circleDiv);
+            }
+        }, false);
+        document.body.appendChild(circleDiv);
+    
+        setTimeout(() => {
+            circleDiv.style.width = `${radius*2}px`;
+            circleDiv.style.height = `${radius*2}px`;
+        }, 0);
+    });
+}
+
+function handleBtnClick () {
+    showCircle(150, 150, 100)
+        .then(circleDiv => {
+            circleDiv.classList.add('message-ball');
+            circleDiv.style.lineHeight = circleDiv.style.height;
+            circleDiv.append('are you ok?');
+        });
+}
+
+</script>
+</body>
+</html>
