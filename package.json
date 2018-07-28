@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ythvg/pro_js#readme",
   "dependencies": {
-    "crawler": "^1.1.4"
+    "crawler": "^1.1.4",
+    "zombie": "^6.1.2"
   }
 }
